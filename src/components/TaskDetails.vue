@@ -1,10 +1,10 @@
 <template>
-   <td> {{ taskElem.taskName }} </td>
-    <td>{{ taskElem.taskStatus }} </td>
-    <td> {{ new Date(taskElem.taskStart).toLocaleString() }} </td>
-    <td> {{ new Date(taskElem.taskEnd).toLocaleString() }} </td>
-    <td> <button id="edit-btn" class="buttons" @click="editTask(taskElem)">Edit Task</button> </td>
-    <td> <button id="delete-btn" class="buttons" @click="taskStore.deleteTask(taskElem.taskId)">Delete Task</button> </td>
+        <td> {{ taskElem.taskName }} </td>
+        <td>{{ taskElem.taskStatus }} </td>
+        <td> {{ new Date(taskElem.taskStart).toLocaleString() }} </td>
+        <td> {{ new Date(taskElem.taskEnd).toLocaleString() }} </td>
+        <td> <button id="edit-btn" class="buttons" @click="editTask(taskElem)">Edit Task</button> </td>
+        <td> <button id="delete-btn" class="buttons" @click="taskStore.deleteTask(taskElem.taskId)">Delete Task</button> </td>
 </template>
 
 <script>
@@ -36,5 +36,6 @@ td
   text-align: center;
   padding-bottom: 10px;
 }
+
 
 </style>

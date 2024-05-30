@@ -1,4 +1,9 @@
 <template>
+
+    <transition name="toast">
+      <toast v-if="showToast">Start of Task should be after End of Task</toast>
+    </transition>
+
     <form>
       <div id="task-form" class="divs">
       <div>
@@ -35,6 +40,7 @@
 import { useTaskStore } from '@/stores/TaskStore';
 import { defineComponent, ref, watchEffect } from 'vue';
 import EventBus from '../main'
+import  ToastBox from './ToastBox.vue'
 
 interface Task{
   taskId: number,
@@ -47,7 +53,9 @@ interface Task{
 let newTempTask: Task;
 
 export default defineComponent({
-
+    components: {
+        'toast': ToastBox
+    },
     created() 
     {
 
@@ -56,7 +64,7 @@ export default defineComponent({
             })
     },
 
-        data(): {newTask: Task, btnName: string}
+        data(): {newTask: Task, btnName: string, showToast: boolean}
         {
             return {
               newTask:
@@ -64,7 +72,8 @@ export default defineComponent({
                 taskId: 0, taskName: "", taskStatus: "", taskStart: new Date(), taskEnd: new Date()
               },
 
-              btnName: "Save Task"
+              btnName: "Save Task",
+              showToast: false
             }
         },
 
@@ -73,7 +82,8 @@ export default defineComponent({
 
             if(this.newTask.taskStart > this.newTask.taskEnd)
             {
-              alert("End of Task should be after Start of Task");
+              this.showToast = true;
+              setTimeout(() => this.showToast = false, 3000)
               return;
             }
 
@@ -123,5 +133,27 @@ export default defineComponent({
   display: flex;
   justify-content: space-around;
 }
+
+.toast-enter-active {
+    animation: wobble 0.5s ease;
+  }
+  
+  .toast-leave-to {
+    opacity: 0;
+    transform: translateY(-60px);
+  }
+  .toast-leave-active {
+    transition: all 0.3s ease;
+  }
+
+  @keyframes wobble {
+    0% { transform: translateY(-100px); opacity: 0 }
+    50% { transform: translateY(0px); opacity: 1 }
+    60% { transform: translateX(8px); opacity: 1 }
+    70% { transform: translateX(-8px); opacity: 1 }
+    80% { transform: translateX(4px); opacity: 1 }
+    90% { transform: translateX(-4px); opacity: 1 }
+    100% { transform: translateX(0px); opacity: 1 }
+  }
 
 </style>

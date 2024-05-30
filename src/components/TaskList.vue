@@ -38,11 +38,11 @@
 
           <!-- <tr></tr> -->
 
-          <tbody v-if="filter === 'all'">
+          <transition-group tag="tbody" name="list" v-if="filter === 'all'">
             <tr class="task-rows" v-for="task in taskStore.tasks" :key="task.taskId" :id="task.taskId.toString()">
-              <task-details :taskElem="task"/>
+                <task-details :taskElem="task"/>
             </tr>
-          </tbody>
+          </transition-group>
           
 
           <tbody v-if="filter === 'not-started'">
@@ -169,6 +169,23 @@ export default defineComponent({
   background-color: white;
   width: 100%;
 }
+
+.list-enter-from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+ 
+  .list-enter-active {
+    transition: all 0.4s ease;
+  }
+  
+  .list-leave-to {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  .list-leave-active {
+    transition: all 0.4s ease;
+  }
 
 
 </style>
